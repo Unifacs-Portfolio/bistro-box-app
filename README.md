@@ -51,7 +51,7 @@ Este é um aplicativo mobile desenvolvido em React Native com Expo, focado no ge
 ## 📸 Prints do App
 
 ### 🏠 Tela Inicial
-![Tela Inicial](assets/images/login/tela_inicio.jpeg)
+![Tela Inicial]
 
 ## ⚙️ Instalação e Execução
 
