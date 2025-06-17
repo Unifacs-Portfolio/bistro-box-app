@@ -3,6 +3,7 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { SafeAreaView, Text, TextInput, View } from 'react-native';
 import { getApiAxios } from '../../services/axios';
+import { ChangeName } from '../../utils/session/ChangeName';
 import { getUserDetails } from '../../utils/session/user-data';
 import { userStore } from '../../utils/stores/user';
 import GoBackButton from '../GoBackButton';
@@ -40,10 +41,7 @@ const ChangeNameScreen = () => {
 				if (data?.name) {
 					const formattedName = capitalizeName(data.name);
 
-					const api = await getApiAxios();
-					const response = await api.put(`/api/usuario/${user.email}`, {
-						nome: formattedName,
-					});
+					await ChangeName(formattedName);
 
 					userStore.getState().setUser({ ...user, nome: formattedName });
 					setIsChanged(false);

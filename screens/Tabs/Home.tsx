@@ -16,9 +16,9 @@ const Home = () => {
 	const fetchPosts = async () => {
 		try {
 			const api = await getApiAxios();
-			const response = await api.get('/api/Gastro/receitas');
+			const response = await api.get('/api/Culinaria/receitas');
 
-			setPosts(response.data);
+			setPosts(response.data.receitas);
 		} catch (error) {
 			console.error('Erro ao buscar posts:', error);
 			Alert.alert('Erro', 'Não foi possível carregar as Postagens');

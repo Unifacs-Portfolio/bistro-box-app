@@ -16,6 +16,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Controller, useForm } from 'react-hook-form';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { axiosLogin } from '../../services/axios';
+import { registerUser, axiosRegister } from '../../services/axios';
 import { RegisterFormData } from '../../utils/types/form/formData';
 import { RootStackParamList } from '../../utils/types/navigation';
 
@@ -23,7 +24,13 @@ type NavigationProp = StackNavigationProp<RootStackParamList>;
 
 export default function Register() {
 	const navigation = useNavigation<NavigationProp>();
-	const { control, handleSubmit, formState } = useForm<RegisterFormData>();
+	const { control, handleSubmit, formState } = useForm<RegisterFormData>({
+		 defaultValues: {
+            nome: '',
+            email: '',
+            senha: '',
+        },
+    });
 	const { isSubmitting } = formState;
 
 	// Estado para alternar visibilidade da senha
@@ -31,22 +38,19 @@ export default function Register() {
 
 	const handleRegisterFormSubmit = async (data: RegisterFormData) => {
 		try {
-			await axiosLogin.post('/api/usuario', {
+			const response = await registerUser({
+				nome: data.nome,
 				email: data.email,
-				senha: data.password,
-				nome: data.username,
-				nivelConsciencia: 4,
-				isMonitor: true,
-				tokens: `${Math.random()}`,
-				telefone: '123232323',
+				senha: data.senha
 			});
-
-			alert('Perfil criado com sucesso!');
+			alert(response.mensagem || 'Perfil criado com sucesso!')
 			navigation.navigate('LogIn');
-		} catch (error) {
-			console.error(error);
-		}
-	};
+		}   catch (error: any) {
+    		alert(error.message || 'Erro ao criar perfil.');
+			console.log(error);
+ 		}
+};
+	
 
 	return (
 		<KeyboardAvoidingView
@@ -81,7 +85,7 @@ export default function Register() {
 
 							<Controller
 								control={control}
-								name="username"
+								name="nome"
 								rules={{
 									required: 'Nome de Usuário é obrigatório',
 									minLength: {
@@ -131,8 +135,8 @@ export default function Register() {
 								rules={{
 									required: 'Email é obrigatório',
 									pattern: {
-										value:
-											/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/,
+										value:/^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+											
 										message: 'Email inválido',
 									},
 								}}
@@ -165,7 +169,7 @@ export default function Register() {
 
 							<Controller
 								control={control}
-								name="password"
+								name="senha"
 								rules={{
 									required: 'A senha é obrigatória',
 									minLength: {

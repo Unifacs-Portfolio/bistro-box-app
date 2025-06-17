@@ -23,8 +23,8 @@ const Profile = () => {
 	const fetchUserPosts = async () => {
 		try {
 			const api = await getApiAxios();
-			const response = await api.get('/api/Gastro/receitas');
-			const userPosts = response.data.filter(
+			const response = await api.get('/api/Culinaria/receitas');
+			const userPosts = response.data.receitas.filter(
 				(post: Post) => post.idUsuario === userProfile?.email,
 			);
 			setUserPostagens(userPosts);

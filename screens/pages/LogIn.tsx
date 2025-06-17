@@ -14,6 +14,7 @@ import {
 import { Controller, useForm } from 'react-hook-form';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { axiosLogin } from '../../services/axios';
+import { mockLogin } from '../../services/mock';
 import {
 	checkIsRemember,
 	removeRememberMeData,
@@ -27,33 +28,46 @@ import { TokenResponse } from '../../utils/types/token';
 export default function LogIn() {
 	const navigation = useNavigation<NavigationProp>();
 	const [rememberMe, setRememberMe] = useState(false);
-	const { control, handleSubmit, formState } = useForm<LoginFormData>();
+	const { control, handleSubmit, formState } = useForm<LoginFormData>({
+		defaultValues: {
+			email: '',
+			senha: '',
+		},
+	});
 	const { isSubmitting } = formState;
+	console.log('isSubmitting:', isSubmitting);
+	console.log('Form State:', {
+	isValid: formState.isValid,
+	isSubmitting: formState.isSubmitting,
+	errors: formState.errors
+	});
 
 	const handleLoginFormSubmit = async (data: LoginFormData) => {
+		console.log('está vindo2');
+		console.log('Dados recebidos:',data);
 		try {
-			const { data: tokenObject } = await axiosLogin.post<TokenResponse>(
-				'/api/usuario/login',
-				{
-					email: data.email,
-					senha: data.password,
-				},
-			);
+			const tokenObject = await axiosLogin.post('/api/usuario/login', {
+				email: data.email,
+				senha: data.senha
+			});
 
-			await saveToken(tokenObject.token);
+        await saveToken(tokenObject.data.token);
 
-			if (rememberMe) {
-				await storeRememberMeData();
-			} else {
-				await removeRememberMeData();
-			}
+        if (rememberMe) {
+            await storeRememberMeData();
+        } else {
+            await removeRememberMeData();
+        }
 
-			alert('Login realizado com sucesso!');
-			navigation.navigate('Main');
-		} catch (error: any) {
-			console.error(error.response);
-		}
-	};
+        alert('Login realizado com sucesso!');
+        navigation.navigate('Main');
+    } catch (error: any) {
+        console.error(error);
+        alert(error?.response?.data?.mensagem || 'Erro ao fazer login.');
+    }
+	
+};
+	
 
 	useFocusEffect(
 		React.useCallback(() => {
@@ -141,7 +155,7 @@ export default function LogIn() {
 
 							<Controller
 								control={control}
-								name="password"
+								name="senha"
 								rules={{
 									required: 'A senha é obrigatoria',
 									minLength: {
@@ -276,7 +290,7 @@ const styles = StyleSheet.create({
 		width: '100%',
 		height: '100%',
 		backgroundColor: '#FFFFFF',
-		objectFit: 'cover',
+		
 	},
 	logoContainer: {
 		justifyContent: 'center',

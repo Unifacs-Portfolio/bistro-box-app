@@ -1,40 +1,34 @@
-import { getApiAxios } from '../../services/axios';
 import { userStore } from '../stores/user';
 import { UserResponse } from '../types/user-response';
-import { decryptToken, getToken } from './manager';
 
+// Mock para getUserDetails
 export const getUserDetails = async () => {
-	const token = await getToken();
-	if (token) {
-		const payloadToken = await decryptToken(token);
-
-		if (userStore.getState().user) {
-			return userStore.getState().user;
-		}
-
-		const axios = await getApiAxios();
-		const { data: user } = await axios.get<UserResponse>(
-			`/api/usuario/${payloadToken?.email}`,
-		);
-
-		// Chama o gerenciador de estado global do zustand para armazenar o nome do usuário
-		userStore.getState().setUser(user);
-		return user;
-	} else {
-		return null;
-	}
+    // Simula delay
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    const mockUser: UserResponse = {
+        nome: 'Mock User',
+        email: 'mock@email.com',
+        telefone: '11999999999',
+		fotoUsu : null,
+		isMonitor:false, 
+		nivelConsciencia:5,      
+		// adicione outros campos necessários do UserResponse
+    };
+    userStore.getState().setUser(mockUser);
+    return mockUser;
 };
 
+// Mock para getUserDetailsByEmail
 export const getUserDetailsByEmail = async (email: string) => {
-	const token = await getToken();
-	if (token) {
-		const axios = await getApiAxios();
-		const { data: user } = await axios.get<UserResponse>(
-			`/api/usuario/${email}`,
-		);
-
-		return user;
-	} else {
-		return null;
-	}
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    const mockUser: UserResponse = {
+        nome: 'Mock User',
+        email,
+        telefone: '11999999999',
+		fotoUsu : null,
+		isMonitor : false,
+		nivelConsciencia: 5,
+        // adicione outros campos necessários do UserResponse
+    };
+    return mockUser;
 };

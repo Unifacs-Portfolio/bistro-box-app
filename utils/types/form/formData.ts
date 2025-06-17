@@ -2,14 +2,14 @@ import { Foto } from '../post';
 
 export interface RegisterFormData {
 	email: string;
-	password: string;
-	username: string;
+	senha: string;
+	nome: string;
 	confirmPassword: string;
 }
 
 export interface LoginFormData {
 	email: string;
-	password: string;
+	senha: string;
 }
 
 export interface ForgotFormData {
