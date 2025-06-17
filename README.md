@@ -48,6 +48,10 @@ Este é um aplicativo mobile desenvolvido em React Native com Expo, focado no ge
 - 🌙 Suporte a tema claro e escuro (se implementado)
 
 ---
+## 📸 Prints do App
+
+### 🏠 Tela Inicial
+![Tela Inicial](assets/images/login/tela_inicio.jpeg)
 
 ## ⚙️ Instalação e Execução
 
@@ -65,8 +69,5 @@ npx expo start
 
 ---
 
-## 📸 Prints do App
 
-### 🏠 Tela Inicial
-![Tela Inicial](![Tela Inicial]
 
