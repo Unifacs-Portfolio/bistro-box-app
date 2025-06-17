@@ -65,5 +65,8 @@ npx expo start
 
 ---
 
-## 📁 Estrutura de Pastas
+## 📸 Prints do App
+
+### 🏠 Tela Inicial
+![Tela Inicial](![Tela Inicial]
 
