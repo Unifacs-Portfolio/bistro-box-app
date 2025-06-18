@@ -48,22 +48,10 @@ Este é um aplicativo mobile desenvolvido em React Native com Expo, focado no ge
 - 🌙 Suporte a tema claro e escuro (se implementado)
 
 ---
-## 📸 Prints do App
-
-### 🏠 Tela Inicial
-![Tela Inicial](assets/images/login/tela_inicio.jpeg)
-
-### Criando conta
-![Crinado conta](assets/images/login/conta_criada(2).jpeg)
-
-### Login
-![Login](assets/images/login/login.jpeg)
-
-### Perfil
-![Perfil](assets/images/login/perfil(2).jpeg)
-
-### Receitas
-![Receitas](assets/images/login/receitas(2).jpeg)
+## 📱Ambiente de Produção:
+- Realize o download do arquivo APK do app pressionando o botão abaixo
+<a href="https://github.com/Unifacs-Portfolio/bistro-box-app/releases/download/1.0/application-417cb025-f2a0-4d74-846f-7fe715fc6a0a.apk" download>
+    <img src="https://img.shields.io/badge/Download-APK-blue.svg" alt="Baixar APK" width="150">
 
 ## ⚙️ Instalação e Execução
 
@@ -80,6 +68,7 @@ Editar
 npx expo start
 
 ---
+##
 
 
 
